@@ -1,11 +1,18 @@
-const container = document.querySelector(".container");
+let mode = 'normal';
+let color = 'rgb(0, 0, 0)'
+let size = 16;
 
 // STUFF FOR GRID
+const btnGridSize = document.querySelector(".button--grid-size");
+const btnModeNormal = document.querySelector(".button--normal");
+const btnModeRainbow = document.querySelector(".button--rainbow");
+const btnReset = document.querySelector(".button--reset");
+const container = document.querySelector(".container");
+
 function createGrid(size = 16) {
     if(size > 100 || size < 1) {
         return;
     }
-
     //set the size of the grid
     container.innerHTML = "";
     container.style.gridTemplateColumns = `repeat(${size}, auto)`;
@@ -17,18 +24,58 @@ function createGrid(size = 16) {
         container.appendChild(newDiv);
         newDiv.className="grid-item"
     }
+    const gridItems = document.querySelectorAll(".grid-item");
+
+    gridItems.forEach((e) => e.onmouseover = (e) => {
+        setColor();
+        e.target.style.backgroundColor = color;
+        e.target.style.borderColor = color;
+    });
 }
 
-const btnGridSize = document.querySelector(".button--grid-size");
-const gridItems = document.querySelectorAll(".grid-item");
+function getRandomNum() {
+    return Math.floor(Math.random() * 255);
+}
+
+function getColor() {
+    if(mode === 'normal') {
+        color = `rgb(0, 0, 0)`;
+    } else if(mode === 'rainbow') {
+        color = `rgb(${getRandomNum()}, ${getRandomNum()}, ${getRandomNum()})`;
+    }
+}
+
+function getRandomColor() {
+    return  `rgb(${getRandomNum()}, ${getRandomNum()}, ${getRandomNum()})`
+}
+
+function setColor() {
+    switch(mode) {
+        case 'rainbow':
+            color = getRandomColor();
+            break;
+        default: color = 'rgb(0, 0, 0)';
+    }
+}
 
 function getGridSize() {
-    const size = prompt("Enter the grid size (max: 100):")
+    size = prompt("Enter the grid size (max: 100):")
     return parseInt(size, 10);
 }
 
 btnGridSize.addEventListener("click", () => createGrid(getGridSize()));
 
+// STUFF FOR NORMAL COLOR MODE
+btnModeNormal.addEventListener("click", () => mode = "normal");
+
+
+// STUFF FOR RAINBOW MODE
+btnModeRainbow.addEventListener("click", () => mode = "rainbow");
+
+btnReset.addEventListener("click", () => {
+    createGrid(size);
+});
+
 window.onload = () => {
-    createGrid();
-};
+    createGrid(size);
+  }
