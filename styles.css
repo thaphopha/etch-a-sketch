@@ -1,0 +1,40 @@
+/*
+BASE
+*/
+body {
+    margin-inline: 2rem;
+    margin-block: 2rem;
+}
+
+/*
+LAYOUT
+*/
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container {
+    width: 960px;
+    height: 960px;
+    display: grid;
+}
+
+/*
+APPEARANCE
+*/
+.container > div {
+    border:1px solid black;
+}
+
+button {
+    display: inline-block;
+    width: 15ch;
+}
