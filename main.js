@@ -8,6 +8,16 @@ const btnModeNormal = document.querySelector(".button--normal");
 const btnModeRainbow = document.querySelector(".button--rainbow");
 const btnReset = document.querySelector(".button--reset");
 const container = document.querySelector(".container");
+const modeParagraph = document.querySelector(".mode");
+
+function setParagraph() {
+    if(mode === 'normal') {
+        modeParagraph.textContent = 'Normal Mode';
+    } else if(mode === 'rainbow') {
+        modeParagraph.textContent = 'Rainbow Mode';
+    }
+};
+
 
 function createGrid(size = 16) {
     if(size > 100 || size < 1) {
@@ -17,7 +27,7 @@ function createGrid(size = 16) {
     container.innerHTML = "";
     container.style.gridTemplateColumns = `repeat(${size}, auto)`;
     container.style.gridTemplateRows = `repeat(${size}, auto)`;
-
+    setParagraph();
     // fill the grid with n,m=size divs
     for(let i = 0; i < size*size; i++) {
         let newDiv = document.createElement("div");
@@ -66,11 +76,11 @@ function getGridSize() {
 btnGridSize.addEventListener("click", () => createGrid(getGridSize()));
 
 // STUFF FOR NORMAL COLOR MODE
-btnModeNormal.addEventListener("click", () => mode = "normal");
+btnModeNormal.addEventListener("click", (e) => {mode = "normal"; setParagraph()});
 
 
 // STUFF FOR RAINBOW MODE
-btnModeRainbow.addEventListener("click", () => mode = "rainbow");
+btnModeRainbow.addEventListener("click", () => {mode = "rainbow"; setParagraph();});
 
 btnReset.addEventListener("click", () => {
     createGrid(size);
