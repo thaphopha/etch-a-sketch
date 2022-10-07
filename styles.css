@@ -22,8 +22,10 @@ aside {
 }
 
 .container {
-    width: 640px;
-    height: 640px;
+    max-width: 720px;
+    max-height: 720px;
+    min-width: 480px;
+    min-height: 480px;
     display: grid;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
